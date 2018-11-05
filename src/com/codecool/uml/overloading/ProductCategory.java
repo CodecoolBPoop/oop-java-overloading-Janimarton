@@ -53,9 +53,9 @@ public class ProductCategory {
     }
 
 
-//    public List<Product> getProducts(){
-//        return ;
-//    }
+    public List<Product> getProducts() {
+        return Product.getAllProductsBy(this);
+    }
 
 
 }
