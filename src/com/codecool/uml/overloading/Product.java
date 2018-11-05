@@ -1,7 +1,6 @@
 package com.codecool.uml.overloading;
 
-import java.util.Currency;
-import java.util.List;
+import java.util.*;
 
 public class Product {
 
@@ -12,9 +11,9 @@ public class Product {
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
-    private List<Product> productList;
+    private static List<Product> productList = new ArrayList<>();
 
-    private int idIncreaseBy1(int id){
+    private int idIncreaseBy1(int id) {
         idCounter++;
         id = idCounter;
         return id;
@@ -23,19 +22,24 @@ public class Product {
 
     public Product() {
         this.id = idIncreaseBy1(id);
+        productList.add(this);
 
     }
 
     public Product(String name, float defaultPrice, Currency defaultCurrency) {
         this.id = idIncreaseBy1(id);
+        this.name = name;
+        this.defaultPrice = defaultPrice;
+        this.defaultCurrency = defaultCurrency;
+        productList.add(this);
     }
 
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
@@ -43,20 +47,20 @@ public class Product {
         this.name = name;
     }
 
-    public float getDefaultPrice(){
+    public float getDefaultPrice() {
         return this.defaultPrice;
     }
 
 
-    public void setDefaultPrice(float defaultPrice){
+    public void setDefaultPrice(float defaultPrice) {
         this.defaultPrice = defaultPrice;
     }
 
-    public Currency getDefaultCurrency(){
+    public Currency getDefaultCurrency() {
         return this.defaultCurrency;
     }
 
-    public void setDefaultCurrency(Currency defaultCurrency){
+    public void setDefaultCurrency(Currency defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
 
@@ -64,11 +68,11 @@ public class Product {
         return productCategory;
     }
 
-    public void setProductCategory(ProductCategory productCategory){
+    public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
     }
 
-    public Supplier getSupplier(){
+    public Supplier getSupplier() {
         return this.supplier;
     }
 
@@ -76,12 +80,26 @@ public class Product {
         this.supplier = supplier;
     }
 
-    public List<Product> getAllProductsBy(ProductCategory productCategory){
-        return productList;
+    public static List<Product> getAllProductsBy(ProductCategory productCategory) {
+        List<Product> toReturn = new ArrayList<>();
+        for (Product product :
+                productList) {
+            if (product.productCategory.equals(productCategory)) {
+                toReturn.add(product);
+            }
+
+        }
+        return toReturn;
     }
 
-    public List<Product> getAllProductsBy(Supplier supplier){
-        return productList;
+    public static List<Product> getAllProductsBy(Supplier supplier) {
+        List<Product> toReturn = new ArrayList<>();
+        for (Product product: productList){
+            if (product.supplier.equals(supplier)){
+                toReturn.add(product);
+            }
+        }
+        return toReturn;
     }
 
     @Override
